@@ -57,7 +57,9 @@ Create_solo_shared_polygons_opland <- function(latlon = c("55.65544512828569, 12
   data <- data.frame(lat = lat, lon = lon)
   sf_data <- st_as_sf(data, coords = c("lon", "lat"), crs = crs_selected) %>% st_transform(25832)
   
-  
+  ###############################################################################
+  'read and combine existing stations'
+  ###############################################################################  
   
   read_existing_stations <- function(file_number){
     #file_number <- 4
