@@ -34,7 +34,7 @@ source("Funktioner/function_closer_station.R")
 'choose if link to already created dot map is used or new created'
 ###################################################################################
 
-create_dot_map <- "no" #yes/no
+create_dot_map <- "yes" #yes/no
 link_to_dot_map <- "prikkort/dots_equals_100_2035+_5073E_00.gpkg"
 
 if(create_dot_map == "no"){
@@ -42,13 +42,13 @@ if(create_dot_map == "no"){
 }
 
 if(create_dot_map == "yes"){
-  dotmap <- dot_map_creator_opland(filename_polygons_link <- "Input_GIS/OTM_7/OTM7Zoner-behandlet.shp",
-                                   filename_zone_data_link <- "//nas2/OTMDATA/OTM73/Soceco/5073E_00/Zone.csv",
-                                   connector_polygons <- "OTM70_ID",
-                                   connector_zone_data <- "ZONE",
-                                   dot_type <- c("POP", "JOBS", "STUO16", "CARS"),
-                                   year <- "2035+",
-                                   divisor <- 100)
+  dotmap <- dot_map_creator_opland(filename_polygons_link = "Input_GIS/OTM_7/OTM7Zoner-behandlet.shp",
+                                   filename_zone_data_link = "//nas2/OTMDATA/OTM73/Soceco/5073E_00/Zone.csv",
+                                   connector_polygons = "OTM70_ID",
+                                   connector_zone_data = "ZONE",
+                                   dot_type = c("POP", "JOBS", "STUO16", "CARS"),
+                                   year = "2035+",
+                                   divisor = 100)
 }
 
 ###################################################################################
