@@ -38,16 +38,8 @@ New_station_closest_station <- function(latlon = c("55.694719466097624, 12.56557
                                                
                                         dotmap_location = "prikkort/dots_equals_100_2035+_5073E_00.gpkg"){
   
-  # Split the latitude and longitude values
-  lat_lon_split <- strsplit(latlon, ",")
-  lat <- as.numeric(lat_lon_split[[1]][1])
-  lon <- as.numeric(lat_lon_split[[1]][2])
   
-  crs_selected <- st_crs(4326)
-  
-  # Create an 'sf' data frame with the POINT object
-  data <- data.frame(lat = lat, lon = lon)
-  sf_data <- st_as_sf(data, coords = c("lon", "lat"), crs = crs_selected) %>% st_transform(25832)
+  sf_data <- convert_google_coords(latlon)
   
   ###############################################################################
   'read and combine existing stations'
@@ -80,7 +72,7 @@ New_station_closest_station <- function(latlon = c("55.694719466097624, 12.56557
   ###############################################################################
    nearest <- st_nearest_feature(dotmap_read, existing_and_new)
   
-  st_write(cbind(dotmap_read, nearest), "Closer_dots_data_and_maps/latest_data_for_visual.gpkg")
+  st_write(cbind(dotmap_read, nearest), "Closer_dots_data_and_maps/latest_data_for_visual.gpkg", append = FALSE)
   
   
   #Which one is new?

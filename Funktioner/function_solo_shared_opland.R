@@ -46,16 +46,7 @@ Create_solo_shared_polygons_opland <- function(latlon = c("55.65544512828569, 12
   "Input_GIS/Stations/M4_nord_blue_st.shp") ' 
   
   
-  # Split the latitude and longitude values
-  lat_lon_split <- strsplit(latlon, ",")
-  lat <- as.numeric(lat_lon_split[[1]][1])
-  lon <- as.numeric(lat_lon_split[[1]][2])
-  
-  crs_selected <- st_crs(4326)
-  
-  # Create an 'sf' data frame with the POINT object
-  data <- data.frame(lat = lat, lon = lon)
-  sf_data <- st_as_sf(data, coords = c("lon", "lat"), crs = crs_selected) %>% st_transform(25832)
+  sf_data <- convert_google_coords(latlon)
   
   ###############################################################################
   'read and combine existing stations'
@@ -78,7 +69,7 @@ Create_solo_shared_polygons_opland <- function(latlon = c("55.65544512828569, 12
   
   buffer_all_stations <- st_buffer(all_stations, buffer_input)
   
-  buffer_selected_station <- st_buffer(sf_data, buffer_input)
+  buffer_selected_station <- st_buffer(sf_data, buffer_input) %>% st_transform(st_crs(all_stations))
   
   ###############################################################################
   'One multipolygon with all'
